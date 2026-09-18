@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "seedtrace"
+version = "0.1.0"
+description = "Find out why two runs with the same seed gave different results."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Gaurav Vyas" },
+]
+keywords = [
+    "reproducibility",
+    "determinism",
+    "random-seed",
+    "machine-learning",
+    "debugging",
+    "pytorch",
+    "numpy",
+    "nondeterminism",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# seedtrace is intentionally dependency-free at runtime.
+# torch / numpy are detected opportunistically when present.
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4",
+    "build>=1.0",
+    "twine>=5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/realgauravvyas/seedtrace"
+Documentation = "https://github.com/realgauravvyas/seedtrace#readme"
+Repository = "https://github.com/realgauravvyas/seedtrace"
+Issues = "https://github.com/realgauravvyas/seedtrace/issues"
+Changelog = "https://github.com/realgauravvyas/seedtrace/blob/main/CHANGELOG.md"
+
+[project.scripts]
+seedtrace = "seedtrace.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/seedtrace"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/seedtrace",
+    "tests",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+# UP is intentionally excluded: the project supports Python 3.9, where
+# typing.Optional/List annotations are the correct spelling at runtime.
+select = ["E", "F", "I", "W", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
