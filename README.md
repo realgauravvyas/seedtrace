@@ -1,11 +1,18 @@
+<div align="center">
+
+<img src="docs/assets/logo.png" alt="seedtrace logo — two runs travelling together, then diverging at a checkpoint" width="150" height="150" />
+
 # seedtrace
+
+**Find out why two runs with the same seed gave different results.**
 
 [![CI](https://github.com/realgauravvyas/seedtrace/actions/workflows/ci.yml/badge.svg)](https://github.com/realgauravvyas/seedtrace/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Dependencies: 0](https://img.shields.io/badge/dependencies-0-green)](pyproject.toml)
+[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
-**Find out why two runs with the same seed gave different results.**
+</div>
 
 ```
 Same seed. Same code. Same machine. Different score. Again.
@@ -20,6 +27,16 @@ pipeline diverges or *which* cause applies to you.**
 `seedtrace` is a forensic debugger for nondeterminism. Add two calls to
 your training script, run it twice, and get a report that points at the
 exact checkpoint and the exact line where the two runs split.
+
+**What it gives you**
+
+| | |
+|---|---|
+| 🔬 `seedtrace variance` | Confirm and measure run-to-run drift; exit code 1 gates it in CI |
+| 🕵️ `seedtrace compare` | Bisect two recorded runs to the *first diverging checkpoint* |
+| 🧨 `seedtrace audit` | Static scan for the real hazards — set iteration order, GPU atomics, unseeded workers, TF32… |
+| 🧾 Zero-dependency capture | SHA-256 fingerprints of every RNG stream + tensor digests at your marks |
+
 
 ## Demo: a full investigation, start to finish
 
@@ -203,6 +220,17 @@ pytest
 ruff check src tests examples
 ```
 
+Brand assets (logo, social-preview card) are generated from code —
+[`docs/generate_brand_assets.py`](docs/generate_brand_assets.py).
+Reproducible branding, in the spirit of the tool itself.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Author
+
+**Gaurav Vyas** — [@realgauravvyas](https://github.com/realgauravvyas)
+
+If `seedtrace` saved you an afternoon of chasing flaky runs, a star
+helps the next person find it.
